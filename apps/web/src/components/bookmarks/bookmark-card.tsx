@@ -15,6 +15,7 @@ import { cn, formatRelativeTime, extractDomain } from '@/lib/utils';
 import { useUpdateBookmark, useDeleteBookmark } from '@/hooks/use-bookmarks';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface BookmarkCardProps {
   bookmark: Bookmark;
@@ -55,66 +56,67 @@ export function BookmarkCard({ bookmark, view }: BookmarkCardProps) {
 
   if (view === 'list') {
     return (
-      <div className="bookmark-card group cursor-pointer" onClick={handleCardClick}>
-        <div className="flex items-start space-x-4">
-          {/* Favicon */}
-          <div className="flex-shrink-0 mt-1">
-            {bookmark.favicon ? (
-              <img
-                src={bookmark.favicon}
-                alt=""
-                className="w-4 h-4"
-                onError={() => setImageError(true)}
-              />
-            ) : (
-              <div className="w-4 h-4 bg-muted rounded-sm" />
-            )}
-          </div>
+      <Card className="group cursor-pointer hover:shadow-md transition-shadow" onClick={handleCardClick}>
+        <CardContent className="p-4">
+          <div className="flex items-start space-x-4">
+            {/* Favicon */}
+            <div className="flex-shrink-0 mt-1">
+              {bookmark.favicon ? (
+                <img
+                  src={bookmark.favicon}
+                  alt=""
+                  className="w-4 h-4"
+                  onError={() => setImageError(true)}
+                />
+              ) : (
+                <div className="w-4 h-4 bg-muted rounded-sm" />
+              )}
+            </div>
 
-          {/* Content */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between">
-              <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-foreground truncate group-hover:text-primary">
-                  {bookmark.title}
-                </h3>
-                <p className="text-sm text-muted-foreground truncate mt-1">
-                  {bookmark.description}
-                </p>
-                <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
-                  <span>{domain}</span>
-                  <span className="flex items-center">
-                    <ClockIcon className="w-3 h-3 mr-1" />
-                    {formatRelativeTime(bookmark.createdAt)}
-                  </span>
-                  {bookmark.readingTime && (
-                    <span>{bookmark.readingTime} min read</span>
-                  )}
+            {/* Content */}
+            <div className="flex-1 min-w-0">
+              <div className="flex items-start justify-between">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-medium text-foreground truncate group-hover:text-primary">
+                    {bookmark.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground truncate mt-1">
+                    {bookmark.description}
+                  </p>
+                  <div className="flex items-center space-x-4 mt-2 text-xs text-muted-foreground">
+                    <span>{domain}</span>
+                    <span className="flex items-center">
+                      <ClockIcon className="w-3 h-3 mr-1" />
+                      {formatRelativeTime(bookmark.createdAt)}
+                    </span>
+                    {bookmark.readingTime && (
+                      <span>{bookmark.readingTime} min read</span>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Actions */}
-              <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleToggleFavorite();
-                  }}
-                  className="p-1 hover:bg-accent rounded"
-                >
-                  {bookmark.isFavorite ? (
-                    <HeartSolidIcon className="w-4 h-4 text-red-500" />
-                  ) : (
-                    <HeartIcon className="w-4 h-4" />
-                  )}
-                </button>
-                <Menu as="div" className="relative">
-                  <Menu.Button
-                    onClick={(e) => e.stopPropagation()}
+                {/* Actions */}
+                <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleToggleFavorite();
+                    }}
                     className="p-1 hover:bg-accent rounded"
                   >
-                    <PencilIcon className="w-4 h-4" />
-                  </Menu.Button>
+                    {bookmark.isFavorite ? (
+                      <HeartSolidIcon className="w-4 h-4 text-red-500" />
+                    ) : (
+                      <HeartIcon className="w-4 h-4" />
+                    )}
+                  </button>
+                  <Menu as="div" className="relative">
+                    <Menu.Button
+                      onClick={(e) => e.stopPropagation()}
+                      className="p-1 hover:bg-accent rounded"
+                    >
+                      <PencilIcon className="w-4 h-4" />
+                    </Menu.Button>
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-100"
@@ -164,7 +166,7 @@ export function BookmarkCard({ bookmark, view }: BookmarkCardProps) {
             {/* Tags */}
             {bookmark.tags && bookmark.tags.length > 0 && (
               <div className="flex items-center flex-wrap gap-1 mt-2">
-                {bookmark.tags.map((tagRelation: any) => (
+                {bookmark.tags.map((tagRelation: { tag: { id: string; name: string } }) => (
                   <span
                     key={tagRelation.tag.id}
                     className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-muted text-muted-foreground"
@@ -175,15 +177,16 @@ export function BookmarkCard({ bookmark, view }: BookmarkCardProps) {
                 ))}
               </div>
             )}
+            </div>
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     );
   }
 
   // Grid view
   return (
-    <div className="bookmark-card group cursor-pointer" onClick={handleCardClick}>
+    <Card className="group cursor-pointer hover:shadow-md transition-shadow" onClick={handleCardClick}>
       {/* Preview Image */}
       {previewImage && (
         <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
@@ -196,7 +199,7 @@ export function BookmarkCard({ bookmark, view }: BookmarkCardProps) {
         </div>
       )}
 
-      <div className="p-4">
+      <CardContent className="p-4">
         {/* Header */}
         <div className="flex items-start justify-between mb-2">
           <div className="flex items-center space-x-2 min-w-0 flex-1">
@@ -238,7 +241,7 @@ export function BookmarkCard({ bookmark, view }: BookmarkCardProps) {
         {/* Tags */}
         {bookmark.tags && bookmark.tags.length > 0 && (
           <div className="flex items-center flex-wrap gap-1 mb-3">
-            {bookmark.tags.slice(0, 3).map((tagRelation: any) => (
+            {bookmark.tags.slice(0, 3).map((tagRelation: { tag: { id: string; name: string } }) => (
               <span
                 key={tagRelation.tag.id}
                 className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-muted text-muted-foreground"
@@ -319,7 +322,7 @@ export function BookmarkCard({ bookmark, view }: BookmarkCardProps) {
             </Transition>
           </Menu>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

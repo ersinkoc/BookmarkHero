@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { Button } from '@/components/ui/button';
 import { AddBookmarkModal } from './add-bookmark-modal';
 
 export function AddBookmarkButton() {
@@ -9,13 +10,10 @@ export function AddBookmarkButton() {
 
   return (
     <>
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-      >
+      <Button onClick={() => setIsModalOpen(true)}>
         <PlusIcon className="w-4 h-4 mr-2" />
         Add Bookmark
-      </button>
+      </Button>
 
       <AddBookmarkModal
         isOpen={isModalOpen}

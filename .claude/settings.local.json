@@ -20,7 +20,9 @@
       "Bash(grep:*)",
       "Bash(cat:*)",
       "Bash(./test-api.sh:*)",
-      "Bash(true)"
+      "Bash(true)",
+      "Bash(npx:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }

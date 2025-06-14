@@ -1,8 +1,6 @@
 'use client';
 
-import { Fragment, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -10,6 +8,14 @@ import { useCreateBookmark } from '@/hooks/use-bookmarks';
 import { useCollections } from '@/hooks/use-collections';
 import { useTags } from '@/hooks/use-tags';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const addBookmarkSchema = z.object({
   url: z.string().url('Please enter a valid URL'),
@@ -30,7 +36,6 @@ export function AddBookmarkModal({ isOpen, onClose }: AddBookmarkModalProps) {
   const createBookmark = useCreateBookmark();
   const { data: collectionsData } = useCollections();
   const { data: tagsData } = useTags();
-  const [isLoadingMetadata, setIsLoadingMetadata] = useState(false);
 
   const collections = collectionsData?.collections || [];
   const tags = tagsData?.tags || [];
@@ -50,7 +55,6 @@ export function AddBookmarkModal({ isOpen, onClose }: AddBookmarkModalProps) {
     },
   });
 
-  const watchedUrl = watch('url');
   const watchedCollectionIds = watch('collectionIds');
   const watchedTagIds = watch('tagIds');
 
@@ -88,46 +92,11 @@ export function AddBookmarkModal({ isOpen, onClose }: AddBookmarkModalProps) {
   };
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-50" onClose={handleClose}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-background p-6 text-left align-middle shadow-xl transition-all border border-border">
-                <div className="flex items-center justify-between mb-4">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-foreground"
-                  >
-                    Add Bookmark
-                  </Dialog.Title>
-                  <button
-                    onClick={handleClose}
-                    className="p-1 hover:bg-accent rounded"
-                  >
-                    <XMarkIcon className="w-5 h-5" />
-                  </button>
-                </div>
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Add Bookmark</DialogTitle>
+        </DialogHeader>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   {/* URL */}
@@ -135,12 +104,11 @@ export function AddBookmarkModal({ isOpen, onClose }: AddBookmarkModalProps) {
                     <label htmlFor="url" className="block text-sm font-medium text-foreground mb-1">
                       URL *
                     </label>
-                    <input
+                    <Input
                       {...register('url')}
                       type="url"
                       id="url"
                       placeholder="https://example.com"
-                      className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                     {errors.url && (
                       <p className="mt-1 text-sm text-red-600">{errors.url.message}</p>
@@ -152,12 +120,11 @@ export function AddBookmarkModal({ isOpen, onClose }: AddBookmarkModalProps) {
                     <label htmlFor="title" className="block text-sm font-medium text-foreground mb-1">
                       Title
                     </label>
-                    <input
+                    <Input
                       {...register('title')}
                       type="text"
                       id="title"
                       placeholder="Bookmark title (auto-detected if empty)"
-                      className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                     />
                   </div>
 
@@ -227,28 +194,19 @@ export function AddBookmarkModal({ isOpen, onClose }: AddBookmarkModalProps) {
 
                   {/* Submit */}
                   <div className="flex justify-end space-x-3 pt-4">
-                    <button
-                      type="button"
-                      onClick={handleClose}
-                      className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground border border-border rounded-md hover:bg-accent transition-colors"
-                    >
+                    <Button type="button" variant="outline" onClick={handleClose}>
                       Cancel
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                       type="submit"
                       disabled={createBookmark.isPending}
-                      className="px-4 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                     >
                       {createBookmark.isPending && <LoadingSpinner size="sm" />}
                       <span>Add Bookmark</span>
-                    </button>
+                    </Button>
                   </div>
                 </form>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition>
+      </DialogContent>
+    </Dialog>
   );
 }
