@@ -5,7 +5,7 @@ services:
     image: postgres:15-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: bookmarkhero_clone
+      POSTGRES_DB: bookmarkhero
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:

@@ -41,7 +41,7 @@ After starting:
 - **Web App**: http://localhost:3000
 - **API**: http://localhost:3001
 - **API Health**: http://localhost:3001/health
-- **Database**: localhost:5432 (postgres/postgres/bookmarkhero_clone)
+- **Database**: localhost:5432 (postgres/postgres/bookmarkhero)
 - **Redis**: localhost:6379
 
 ## 📝 **First Steps**

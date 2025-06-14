@@ -5,7 +5,7 @@ services:
     image: postgres:15-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: bookmarkhero_clone
+      POSTGRES_DB: bookmarkhero
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
@@ -38,7 +38,7 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/bookmarkhero_clone?schema=public
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/bookmarkhero?schema=public
       - REDIS_URL=redis://redis:6379
       - JWT_SECRET=dev-jwt-secret-key
       - JWT_REFRESH_SECRET=dev-refresh-secret-key

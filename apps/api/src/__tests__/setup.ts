@@ -3,7 +3,7 @@ import { prisma } from '../config/database';
 // Mock environment variables
 process.env.JWT_SECRET = 'test-jwt-secret-key-for-testing-only-32chars';
 process.env.JWT_REFRESH_SECRET = 'test-refresh-secret-key-for-testing-32chars';
-process.env.DATABASE_URL = 'postgresql://postgres:postgres@localhost:5432/bookmarkhero_clone_test?schema=public';
+process.env.DATABASE_URL = 'postgresql://postgres:postgres@localhost:5432/bookmarkhero_test?schema=public';
 process.env.REDIS_URL = 'redis://localhost:6379';
 process.env.NODE_ENV = 'test';
 
