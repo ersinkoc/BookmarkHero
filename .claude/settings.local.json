@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(chmod:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(/mnt/c/Sync/Codebox/ClaudeCode/Bookmark/test-startup.sh)",
+      "Bash(npm run docker:simple:*)",
+      "Bash(npx prisma:*)",
+      "Bash(npm start)",
+      "Bash(timeout:*)",
+      "Bash(npm run dev:*)",
+      "Bash(pkill:*)",
+      "Bash(curl:*)",
+      "Bash(npx tsc:*)",
+      "Bash(grep:*)",
+      "Bash(cat:*)",
+      "Bash(./test-api.sh:*)",
+      "Bash(true)"
+    ],
+    "deny": []
+  }
+}
