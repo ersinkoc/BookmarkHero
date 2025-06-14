@@ -70,3 +70,7 @@ prisma/migrations/
 
 # Browser extension builds
 apps/extension/dist/
+
+
+.claude/
+CLAUDE.md

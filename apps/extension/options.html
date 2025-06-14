@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookmarkHero - Settings</title>
+  <link rel="stylesheet" href="styles/options.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <img src="icons/icon-48.png" alt="BookmarkHero" class="logo-icon">
+          <div>
+            <h1>BookmarkHero Settings</h1>
+            <p>Customize your bookmark saving experience</p>
+          </div>
+        </div>
+        <div class="version">
+          <span>Version 1.0.0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Welcome Section (shown on first install) -->
+    <section id="welcome-section" class="welcome-section hidden">
+      <div class="welcome-content">
+        <div class="welcome-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <h2>Welcome to BookmarkHero!</h2>
+        <p>Your browser extension is now ready to help you save and organize bookmarks. Here's how to get started:</p>
+        
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon">📌</div>
+            <div>
+              <h3>Quick Save</h3>
+              <p>Click the BookmarkHero icon in your toolbar or use <kbd>Ctrl+Shift+S</kbd></p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🏷️</div>
+            <div>
+              <h3>Organize</h3>
+              <p>Add tags and collections to keep your bookmarks organized</p>
+            </div>
+          </div>
+          
+          <div class="feature-item">
+            <div class="feature-icon">🔄</div>
+            <div>
+              <h3>Sync</h3>
+              <p>Access your bookmarks across all your devices</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="welcome-actions">
+          <button id="connect-account" class="btn btn-primary">Connect Your Account</button>
+          <button id="skip-setup" class="btn btn-secondary">Skip for Now</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Settings -->
+    <main class="main-content">
+      <!-- Account Section -->
+      <section class="settings-section">
+        <h2>Account</h2>
+        
+        <div id="account-connected" class="account-status connected hidden">
+          <div class="status-icon">✓</div>
+          <div class="status-content">
+            <h3 id="user-name">Connected Account</h3>
+            <p id="user-email">user@example.com</p>
+          </div>
+          <button id="disconnect-account" class="btn btn-secondary">Disconnect</button>
+        </div>
+
+        <div id="account-disconnected" class="account-status disconnected hidden">
+          <div class="status-icon">!</div>
+          <div class="status-content">
+            <h3>Not Connected</h3>
+            <p>Connect your BookmarkHero account to sync bookmarks</p>
+          </div>
+          <button id="connect-account-main" class="btn btn-primary">Connect Account</button>
+        </div>
+      </section>
+
+      <!-- API Configuration -->
+      <section class="settings-section">
+        <h2>API Configuration</h2>
+        <div class="setting-item">
+          <label for="api-url">BookmarkHero API URL</label>
+          <input type="url" id="api-url" placeholder="http://localhost:3001/api">
+          <p class="setting-description">URL of your BookmarkHero API server</p>
+        </div>
+      </section>
+
+      <!-- Saving Preferences -->
+      <section class="settings-section">
+        <h2>Saving Preferences</h2>
+        
+        <div class="setting-item">
+          <label class="switch-label">
+            <input type="checkbox" id="auto-save">
+            <span class="switch"></span>
+            Auto-save bookmarks
+          </label>
+          <p class="setting-description">Automatically save pages you spend more than 2 minutes on</p>
+        </div>
+
+        <div class="setting-item">
+          <label for="default-collection">Default Collection</label>
+          <select id="default-collection">
+            <option value="">No default collection</option>
+          </select>
+          <p class="setting-description">New bookmarks will be added to this collection by default</p>
+        </div>
+
+        <div class="setting-item">
+          <label class="switch-label">
+            <input type="checkbox" id="quick-save-enabled">
+            <span class="switch"></span>
+            Show floating save button
+          </label>
+          <p class="setting-description">Display a floating button on web pages for quick saving</p>
+        </div>
+
+        <div class="setting-item">
+          <label class="switch-label">
+            <input type="checkbox" id="context-menu-enabled">
+            <span class="switch"></span>
+            Enable context menu
+          </label>
+          <p class="setting-description">Add "Save to BookmarkHero" to right-click menus</p>
+        </div>
+      </section>
+
+      <!-- Notifications -->
+      <section class="settings-section">
+        <h2>Notifications</h2>
+        
+        <div class="setting-item">
+          <label class="switch-label">
+            <input type="checkbox" id="notifications-enabled">
+            <span class="switch"></span>
+            Enable notifications
+          </label>
+          <p class="setting-description">Show notifications when bookmarks are saved</p>
+        </div>
+
+        <div class="setting-item">
+          <label class="switch-label">
+            <input type="checkbox" id="duplicate-warnings">
+            <span class="switch"></span>
+            Warn about duplicates
+          </label>
+          <p class="setting-description">Show a warning when trying to save an already bookmarked page</p>
+        </div>
+      </section>
+
+      <!-- Keyboard Shortcuts -->
+      <section class="settings-section">
+        <h2>Keyboard Shortcuts</h2>
+        
+        <div class="shortcuts-list">
+          <div class="shortcut-item">
+            <div class="shortcut-action">Quick save bookmark</div>
+            <div class="shortcut-keys">
+              <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd>
+              <span class="shortcut-mac">(<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> on Mac)</span>
+            </div>
+          </div>
+          
+          <div class="shortcut-item">
+            <div class="shortcut-action">Open popup</div>
+            <div class="shortcut-keys">
+              <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd>
+              <span class="shortcut-mac">(<kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>B</kbd> on Mac)</span>
+            </div>
+          </div>
+        </div>
+        
+        <p class="setting-description">
+          <a href="chrome://extensions/shortcuts" target="_blank">Customize shortcuts in Chrome</a>
+        </p>
+      </section>
+
+      <!-- Data & Privacy -->
+      <section class="settings-section">
+        <h2>Data & Privacy</h2>
+        
+        <div class="setting-item">
+          <button id="export-data" class="btn btn-secondary">Export Extension Data</button>
+          <p class="setting-description">Download your extension settings and cached data</p>
+        </div>
+
+        <div class="setting-item">
+          <button id="clear-cache" class="btn btn-secondary">Clear Cache</button>
+          <p class="setting-description">Clear stored authentication tokens and cached data</p>
+        </div>
+
+        <div class="setting-item danger-zone">
+          <button id="reset-settings" class="btn btn-danger">Reset All Settings</button>
+          <p class="setting-description">Reset extension to default settings (cannot be undone)</p>
+        </div>
+      </section>
+
+      <!-- Support -->
+      <section class="settings-section">
+        <h2>Support & Information</h2>
+        
+        <div class="support-links">
+          <a href="#" id="open-dashboard" class="support-link">
+            <div class="support-icon">🏠</div>
+            <div>
+              <h3>Open Dashboard</h3>
+              <p>Access your BookmarkHero web dashboard</p>
+            </div>
+          </a>
+          
+          <a href="https://github.com/bookmarkhero/extension" target="_blank" class="support-link">
+            <div class="support-icon">📚</div>
+            <div>
+              <h3>Documentation</h3>
+              <p>Learn more about BookmarkHero features</p>
+            </div>
+          </a>
+          
+          <a href="https://github.com/bookmarkhero/extension/issues" target="_blank" class="support-link">
+            <div class="support-icon">🐛</div>
+            <div>
+              <h3>Report Issue</h3>
+              <p>Found a bug? Let us know!</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2024 BookmarkHero. Open source bookmark manager.</p>
+      <div class="footer-links">
+        <a href="https://bookmarkhero.com/privacy" target="_blank">Privacy Policy</a>
+        <a href="https://bookmarkhero.com/terms" target="_blank">Terms of Service</a>
+      </div>
+    </footer>
+
+    <!-- Success Toast -->
+    <div id="success-toast" class="toast success hidden">
+      <span class="toast-text">Settings saved!</span>
+      <button class="toast-close">&times;</button>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="toast error hidden">
+      <span class="toast-text">Error saving settings</span>
+      <button class="toast-close">&times;</button>
+    </div>
+  </div>
+
+  <script src="scripts/options.js"></script>
+</body>
+</html>

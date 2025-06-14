@@ -1,0 +1,28 @@
+{
+  "name": "@bookmark-hero/extension",
+  "version": "1.0.0",
+  "description": "Browser extension for BookmarkHero - Save and manage bookmarks with ease",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Extension build complete'",
+    "pack": "cd .. && zip -r extension.zip extension/ -x '*/node_modules/*' '*/package.json' '*/README.md'",
+    "dev": "echo 'Load extension from this directory in Chrome developer mode'"
+  },
+  "keywords": [
+    "bookmarks",
+    "chrome-extension",
+    "firefox-addon",
+    "bookmark-manager",
+    "productivity"
+  ],
+  "author": "BookmarkHero Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bookmarkhero/extension"
+  },
+  "bugs": {
+    "url": "https://github.com/bookmarkhero/extension/issues"
+  },
+  "homepage": "https://bookmarkhero.com"
+}

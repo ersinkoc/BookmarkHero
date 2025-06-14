@@ -22,7 +22,11 @@
       "Bash(./test-api.sh:*)",
       "Bash(true)",
       "Bash(npx:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(npm audit:*)",
+      "Bash(npm run:*)",
+      "Bash(docker exec:*)",
+      "Bash(DATABASE_URL=\"postgresql://postgres:postgres@localhost:5432/bookmarkhero_test?schema=public\" npm run db:push)"
     ],
     "deny": []
   }
